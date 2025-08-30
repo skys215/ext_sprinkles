@@ -1,0 +1,18 @@
+/* Default (light) */
+div.gptime {
+  color: #333;
+  font-size: 0.75rem;
+}
+
+/* Dark mode */
+@media (color-scheme: dark) {
+  div.gptime {
+    color: #999;
+  }
+}
+html.dark, body.dark,
+html[data-theme="dark"], body[data-theme="dark"]{
+  div.gptime {
+    color: #999;
+  }
+}
