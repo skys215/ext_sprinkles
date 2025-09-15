@@ -26,7 +26,7 @@ function interceptTime() {
             const newMsgUrl = 'https://chatgpt.com/backend-api/f/conversation';
             // payload: conversation_id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p"
 
-            return url == targetUrl || url  == newMsgUrl || isInit(url);
+            return url == targetUrl || url.endsWith(convserationId) || isInit(url);
             // const u = new URL(url, window.location.href);
             // return u.href.startsWith(targetPrefix);
         } catch {
@@ -108,7 +108,12 @@ function interceptTime() {
         const method = (init && init.method) || 'GET';
         const url = (typeof input === 'string') ? input : input.url;
             if (!shouldCapture(url)) {
-                return origFetch(input, init)
+                try{
+                    return origFetch(input, init)
+                }
+                catch(e) {
+                    console.log(error);
+                }
             }
 
             const xc = {
@@ -256,7 +261,6 @@ function interceptTime() {
 function appendTime(times){
     for(const id in times){
         const txt = `article[data-turn-id="${id}"] > div > div > div:nth-child(2) > div`
-        console.log(txt)
         const el = document.querySelector(txt)
 
         if (el){
